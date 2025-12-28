@@ -1,0 +1,360 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Bengali Royal Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&display=swap');
+
+@theme {
+	/* Royal Bengali Color Palette */
+	--color-primary: #1a1512;
+	--color-secondary: #2d1b1b;
+	--color-accent: #d4af37;
+	--color-accent-hover: #b8860b;
+	--color-maroon: #6b1d1d;
+	--color-royal-purple: #2d1b4e;
+	--color-copper: #b87333;
+	--color-cream: #f5f0e1;
+	--color-parchment: #e8dcc4;
+	--color-dark-gold: #8b7355;
+
+	/* Font Family */
+	--font-bengali: 'Hind Siliguri', 'Tiro Bangla', sans-serif;
+}
+
+/* Apply Bengali font globally */
+html {
+	font-family: var(--font-bengali);
+}
+
+/* Royal Background Pattern */
+.royal-bg {
+	background:
+		radial-gradient(ellipse at top, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+		radial-gradient(ellipse at bottom, rgba(107, 29, 29, 0.2) 0%, transparent 50%),
+		linear-gradient(180deg, #1a1512 0%, #2d1b1b 50%, #1a1512 100%);
+	background-attachment: fixed;
+}
+
+/* Decorative Border Pattern */
+.royal-border {
+	border: 2px solid var(--color-accent);
+	box-shadow:
+		inset 0 0 20px rgba(212, 175, 55, 0.1),
+		0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+/* Golden Glow Effect */
+.golden-glow {
+	box-shadow:
+		0 0 20px rgba(212, 175, 55, 0.4),
+		0 0 40px rgba(212, 175, 55, 0.2),
+		0 0 60px rgba(212, 175, 55, 0.1);
+}
+
+/* Ornate Frame for Cards */
+.card-frame {
+	position: relative;
+	border: 3px solid var(--color-accent);
+	border-radius: 12px;
+	box-shadow:
+		0 4px 20px rgba(0, 0, 0, 0.5),
+		inset 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.card-frame::before {
+	content: '';
+	position: absolute;
+	inset: -6px;
+	border: 1px solid rgba(212, 175, 55, 0.3);
+	border-radius: 16px;
+	pointer-events: none;
+}
+
+/* Player Avatar Styles */
+.player-avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--color-maroon), var(--color-royal-purple));
+	border: 3px solid var(--color-accent);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--color-cream);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.player-avatar.host::after {
+	content: '👑';
+	position: absolute;
+	top: -12px;
+	font-size: 1rem;
+}
+
+/* Current Turn Indicator */
+.current-turn {
+	animation: royalPulse 2s ease-in-out infinite;
+}
+
+@keyframes royalPulse {
+	0%,
+	100% {
+		box-shadow:
+			0 0 20px rgba(212, 175, 55, 0.6),
+			0 0 40px rgba(212, 175, 55, 0.3);
+	}
+	50% {
+		box-shadow:
+			0 0 30px rgba(212, 175, 55, 0.8),
+			0 0 60px rgba(212, 175, 55, 0.5);
+	}
+}
+
+/* Ornate Divider */
+.ornate-divider {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.ornate-divider::before,
+.ornate-divider::after {
+	content: '';
+	flex: 1;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
+/* Royal Seal/Emblem Animation */
+.royal-emblem {
+	text-shadow:
+		0 0 10px rgba(212, 175, 55, 0.5),
+		0 0 20px rgba(212, 175, 55, 0.3),
+		0 0 30px rgba(212, 175, 55, 0.2);
+}
+
+@layer components {
+	.btn-primary {
+		@apply rounded-lg px-6 py-3 font-semibold transition-all duration-300 hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100;
+		background: linear-gradient(135deg, var(--color-maroon), #8b2525);
+		color: var(--color-cream);
+		border: 2px solid var(--color-accent);
+		box-shadow: 0 4px 15px rgba(107, 29, 29, 0.4);
+	}
+
+	.btn-primary:hover:not(:disabled) {
+		background: linear-gradient(135deg, #8b2525, var(--color-maroon));
+		box-shadow: 0 6px 25px rgba(212, 175, 55, 0.3);
+	}
+
+	.btn-secondary {
+		@apply rounded-lg px-4 py-2 transition-all duration-300;
+		background: transparent;
+		color: var(--color-cream);
+		border: 1px solid var(--color-accent);
+	}
+
+	.btn-secondary:hover {
+		background: linear-gradient(135deg, #3d2b5e, var(--color-royal-purple));
+		box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+	}
+
+	.card-base {
+		@apply rounded-xl p-6 shadow-xl backdrop-blur-sm;
+		background: linear-gradient(135deg, rgba(45, 27, 27, 0.9), rgba(26, 21, 18, 0.95));
+		border: 2px solid var(--color-accent);
+		box-shadow:
+			0 10px 40px rgba(0, 0, 0, 0.5),
+			inset 0 0 30px rgba(212, 175, 55, 0.05);
+	}
+
+	.game-card {
+		@apply cursor-pointer overflow-hidden rounded-xl shadow-2xl transition-all duration-300 hover:-translate-y-3;
+		width: 70px;
+		height: 98px;
+		border: 2px solid var(--color-accent);
+		box-shadow:
+			0 8px 25px rgba(0, 0, 0, 0.5),
+			0 0 15px rgba(212, 175, 55, 0.2);
+	}
+
+	.game-card:hover {
+		box-shadow:
+			0 12px 35px rgba(0, 0, 0, 0.6),
+			0 0 25px rgba(212, 175, 55, 0.4);
+	}
+
+	.game-card img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* Larger cards for desktop */
+	@media (min-width: 768px) {
+		.game-card {
+			width: 90px;
+			height: 126px;
+		}
+	}
+
+	/* Current player's cards - much larger */
+	.my-card {
+		@apply cursor-default overflow-hidden rounded-2xl shadow-2xl transition-all duration-300 hover:-translate-y-4;
+		width: 130px;
+		height: 182px;
+		border: 4px solid var(--color-accent);
+		box-shadow:
+			0 12px 35px rgba(0, 0, 0, 0.6),
+			0 0 30px rgba(212, 175, 55, 0.3),
+			inset 0 0 20px rgba(212, 175, 55, 0.1);
+	}
+
+	.my-card:hover {
+		box-shadow:
+			0 18px 45px rgba(0, 0, 0, 0.7),
+			0 0 40px rgba(212, 175, 55, 0.5),
+			inset 0 0 25px rgba(212, 175, 55, 0.15);
+	}
+
+	.my-card img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* Even larger my-cards for desktop */
+	@media (min-width: 768px) {
+		.my-card {
+			width: 170px;
+			height: 238px;
+			border-width: 5px;
+			border-radius: 1rem;
+		}
+	}
+
+	/* Player card in game area */
+	.player-game-card {
+		background: linear-gradient(135deg, rgba(45, 27, 27, 0.95), rgba(26, 21, 18, 0.98));
+		border: 2px solid var(--color-accent);
+		border-radius: 1rem;
+		padding: 1rem;
+		min-width: 160px;
+		box-shadow:
+			0 8px 30px rgba(0, 0, 0, 0.4),
+			inset 0 0 20px rgba(212, 175, 55, 0.05);
+	}
+
+	.player-game-card.is-current-turn {
+		border-color: var(--color-accent);
+		box-shadow:
+			0 0 25px rgba(212, 175, 55, 0.5),
+			0 0 50px rgba(212, 175, 55, 0.25),
+			inset 0 0 20px rgba(212, 175, 55, 0.1);
+		animation: royalPulse 2s ease-in-out infinite;
+	}
+
+	.player-game-card.is-eliminated {
+		opacity: 0.5;
+		filter: grayscale(0.7);
+	}
+
+	.player-game-card.is-disconnected {
+		opacity: 0.4;
+		filter: grayscale(1);
+	}
+
+	/* Input Styling */
+	.royal-input {
+		@apply w-full rounded-lg px-4 py-3 transition-all focus:outline-none;
+		background: rgba(45, 27, 27, 0.6);
+		border: 2px solid rgba(212, 175, 55, 0.3);
+		color: var(--color-cream);
+	}
+
+	.royal-input::placeholder {
+		color: rgba(245, 240, 225, 0.5);
+	}
+
+	.royal-input:focus {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+	}
+
+	/* Action Log Pill */
+	.log-pill {
+		@apply rounded-full px-4 py-2 text-sm whitespace-nowrap;
+		background: rgba(45, 27, 27, 0.8);
+		border: 1px solid rgba(212, 175, 55, 0.3);
+		color: var(--color-cream);
+	}
+
+	/* Circular Player Container */
+	.players-circle {
+		position: relative;
+		width: 100%;
+		max-width: 600px;
+		aspect-ratio: 1;
+		margin: 0 auto;
+	}
+
+	.player-position {
+		position: absolute;
+		transform: translate(-50%, -50%);
+	}
+
+	/* Mobile Player Row */
+	@media (max-width: 767px) {
+		.players-circle {
+			display: flex;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			aspect-ratio: unset;
+			gap: 1rem;
+			padding: 1rem;
+			max-width: 100%;
+		}
+
+		.player-position {
+			position: relative;
+			transform: none;
+			flex-shrink: 0;
+		}
+	}
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 2px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-accent);
+	border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent-hover);
+}
+
+/* Hide scrollbar on mobile player row but keep functionality */
+.hide-scrollbar::-webkit-scrollbar {
+	height: 2px;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+	background: rgba(212, 175, 55, 0.3);
+}
+
+/* Selection Color */
+::selection {
+	background: rgba(212, 175, 55, 0.3);
+	color: var(--color-cream);
+}
