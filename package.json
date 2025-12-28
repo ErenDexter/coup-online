@@ -4,11 +4,14 @@
 	"version": "0.0.1",
 	"type": "module",
 	"pnpm": {
-		"onlyBuiltDependencies": ["better-sqlite3"]
+		"onlyBuiltDependencies": [
+			"better-sqlite3"
+		]
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "vite build && pnpm build:server",
+		"build:server": "node scripts/build-server.js",
 		"preview": "vite preview",
 		"start": "node server.js",
 		"prepare": "svelte-kit sync || echo ''",
@@ -31,6 +34,7 @@
 		"@types/node": "^24",
 		"drizzle-kit": "^0.31.8",
 		"drizzle-orm": "^0.45.0",
+		"esbuild": "^0.24.2",
 		"prettier": "^3.7.4",
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.7.2",
