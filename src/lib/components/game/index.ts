@@ -9,6 +9,7 @@ export { default as TargetModal } from './TargetModal.svelte';
 export { default as CardLossModal } from './CardLossModal.svelte';
 export { default as ExchangeModal } from './ExchangeModal.svelte';
 export { default as GameOverScreen } from './GameOverScreen.svelte';
+export { default as RulesCard } from './RulesCard.svelte';
 
 // Types and utilities - re-export from $lib/types
 export * from '$lib/types';

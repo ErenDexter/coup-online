@@ -17,6 +17,7 @@
 		CardLossModal,
 		ExchangeModal,
 		GameOverScreen,
+		RulesCard,
 		// Types and utilities
 		type Player,
 		type PendingAction,
@@ -66,6 +67,7 @@
 	let selectingCardToLose = $state(false);
 	let cardsToChoose: string[] = $state([]);
 	let exchangeCards: ExchangeCards | null = $state(null);
+	let showRules = $state(false);
 
 	// Constants
 	const MUST_COUP_AT = 10;
@@ -372,6 +374,11 @@
 			myCards = data.newCards;
 			exchangeCards = null;
 		});
+
+		// Handle card swap after winning a challenge
+		socket.on('cards_updated', (data) => {
+			myCards = data.cards;
+		});
 	}
 
 	onMount(connectSocket);
@@ -482,6 +489,14 @@
 				<div class="ornate-divider mx-auto my-4 max-w-xs">
 					<span class="text-[#D4AF37]">✦</span>
 				</div>
+				<!-- Rules Button in Lobby -->
+				<button
+					onclick={() => (showRules = true)}
+					class="mx-auto mb-4 flex items-center gap-2 rounded-lg border border-[#D4AF37]/50 bg-[#2D1B1B]/80 px-4 py-2 text-[#F5F0E1]/80 transition-all hover:border-[#D4AF37] hover:bg-[#2D1B1B] hover:text-[#D4AF37]"
+					style="font-family: 'Tiro Bangla', serif;"
+				>
+					নিয়মাবলী
+				</button>
 				<div class="flex flex-wrap items-center justify-center gap-4">
 					<span class="text-lg text-[#F5F0E1]/80">কক্ষ:</span>
 					<span class="text-2xl font-bold tracking-widest text-[#D4AF37]">{roomCode}</span>
@@ -689,8 +704,22 @@
 		{#if exchangeCards}
 			<ExchangeModal {exchangeCards} onconfirm={handleExchangeConfirm} />
 		{/if}
+
+		<!-- Floating Rules Button -->
+		<button
+			onclick={() => (showRules = true)}
+			class="fixed right-4 bottom-24 z-40 flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#D4AF37]/50 bg-[#2D1B1B]/90 text-xs font-bold text-[#D4AF37] shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:border-[#D4AF37] hover:bg-[#2D1B1B]"
+			title="নিয়মাবলী"
+		>
+			?
+		</button>
 	{:else}
 		<GameOverScreen />
+	{/if}
+
+	<!-- Rules Card Modal -->
+	{#if showRules}
+		<RulesCard onclose={() => (showRules = false)} />
 	{/if}
 </div>
 

@@ -129,6 +129,11 @@ export function handleChallenge(io: Server, socket: Socket) {
 			// Save actor's new cards to DB
 			await db.update(players).set({ cards: actor.cards }).where(eq(players.id, actor.id));
 
+			// Send updated cards to the actor
+			if (actor.socketId) {
+				io.to(actor.socketId).emit('cards_updated', { cards: actor.cards });
+			}
+
 			// Challenger loses influence, then resolve original action
 			loseInfluence(io, room.code, gameState, challenger.id, 'challenge_failed', 'resolve');
 		} else {
@@ -219,6 +224,11 @@ export function handleChallengeBlock(io: Server, socket: Socket) {
 
 			// Save blocker's new cards to DB
 			await db.update(players).set({ cards: blocker.cards }).where(eq(players.id, blocker.id));
+
+			// Send updated cards to the blocker
+			if (blocker.socketId) {
+				io.to(blocker.socketId).emit('cards_updated', { cards: blocker.cards });
+			}
 
 			// Challenger loses influence, block stands, then next turn
 			loseInfluence(io, room.code, gameState, challenger.id, 'challenge_failed', 'next_turn');

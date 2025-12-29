@@ -2,11 +2,13 @@
 	import { goto } from '$app/navigation';
 	import { fade, scale } from 'svelte/transition';
 	import { io } from 'socket.io-client';
+	import { RulesCard } from '$lib/components/game';
 
 	let playerName = $state('');
 	let roomCode = $state('');
 	let loading = $state(false);
 	let error = $state('');
+	let showRules = $state(false);
 
 	// Store session data securely in localStorage
 	function storeSession(code: string, data: any) {
@@ -183,6 +185,12 @@
 
 		<!-- Footer -->
 		<div class="mt-8 text-center">
+			<button
+				onclick={() => (showRules = true)}
+				class="mb-4 inline-flex items-center gap-2 rounded-lg border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-4 py-2 text-sm text-[#D4AF37] transition-all hover:bg-[#D4AF37]/20"
+			>
+				নিয়মাবলী দেখুন
+			</button>
 			<p class="text-sm text-[#F5F0E1]/80" style="font-family: 'Hind Siliguri', sans-serif;">
 				বন্ধুদের সাথে খেলতে কক্ষ কোড শেয়ার করুন
 			</p>
@@ -195,4 +203,8 @@
 			</div>
 		</div>
 	</div>
+
+	{#if showRules}
+		<RulesCard onclose={() => (showRules = false)} />
+	{/if}
 </div>
