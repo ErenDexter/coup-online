@@ -73,12 +73,28 @@
 					</button>
 				{/if}
 				{#if pendingAction.canBlock && (pendingAction.action === 'foreign_aid' || pendingAction.target === myId)}
-					<button
-						onclick={() => onblock(getBlockCard(pendingAction.action))}
-						class="rounded-lg border-2 border-[#D4AF37] bg-linear-to-r from-amber-700 to-amber-800 px-6 py-3 text-base font-bold transition-all hover:scale-105"
-					>
-						🛡️ প্রতিরোধ!
-					</button>
+					{#if pendingAction.action === 'steal'}
+						<!-- Steal can be blocked by Captain OR Ambassador -->
+						<button
+							onclick={() => onblock('captain')}
+							class="rounded-lg border-2 border-[#D4AF37] bg-linear-to-r from-amber-700 to-amber-800 px-4 py-3 text-sm font-bold transition-all hover:scale-105 md:px-6 md:text-base"
+						>
+							সেনাপতি দিয়ে প্রতিরোধ
+						</button>
+						<button
+							onclick={() => onblock('ambassador')}
+							class="rounded-lg border-2 border-[#D4AF37] bg-linear-to-r from-green-700 to-green-800 px-4 py-3 text-sm font-bold transition-all hover:scale-105 md:px-6 md:text-base"
+						>
+							মন্ত্রী দিয়ে প্রতিরোধ
+						</button>
+					{:else}
+						<button
+							onclick={() => onblock(getBlockCard(pendingAction.action))}
+							class="rounded-lg border-2 border-[#D4AF37] bg-linear-to-r from-amber-700 to-amber-800 px-6 py-3 text-base font-bold transition-all hover:scale-105"
+						>
+							প্রতিরোধ!
+						</button>
+					{/if}
 				{/if}
 			{/if}
 			<button
